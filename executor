@@ -1,0 +1,63 @@
+-- Gui to Lua
+-- Version: 3.6
+
+-- Instances:
+
+local ExploitSave = Instance.new("ScreenGui")
+local Executor = Instance.new("TextBox")
+local TextButton = Instance.new("TextButton")
+
+-- Properties:
+
+ExploitSave.Name = "ExploitSave"
+ExploitSave.Parent = game:GetService("CoreGui")
+ExploitSave.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Executor.Name = "Executor"
+Executor.Parent = ExploitSave
+Executor.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Executor.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Executor.BorderSizePixel = 0
+Executor.Position = UDim2.new(0.436073065, 0, 0.220279723, 0)
+Executor.Size = UDim2.new(0.100000001, 0, 0.100000001, 0)
+Executor.Font = Enum.Font.SourceSans
+Executor.LineHeight = 0.000
+Executor.Text = ""
+Executor.TextColor3 = Color3.fromRGB(255, 255, 255)
+Executor.TextScaled = true
+Executor.TextSize = 14.000
+Executor.TextWrapped = true
+
+TextButton.Parent = Executor
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.989345431, 0, -0.0174826514, 0)
+TextButton.Size = UDim2.new(1.19482493, 0, 1.01748276, 0)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "Execute"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+
+-- Scripts:
+
+local function WONN_fake_script() -- TextButton.LocalScript 
+	local script = Instance.new('LocalScript', TextButton)
+
+	local button = script.Parent
+	local textbox = script.Parent.Parent.Parent.Executor
+	button.MouseButton1Click:Connect(function()
+		local Success, Error = pcall(function()
+			loadstring(tostring(textbox.Text))()
+		end)
+	
+		if Success then
+			print("Code ran succesfully")
+		else
+			assert(false, Error)
+		end
+	end)
+end
+coroutine.wrap(WONN_fake_script)()
